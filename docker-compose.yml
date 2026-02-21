@@ -20,7 +20,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DocumentProcessingService/Dockerfile
     depends_on:
       db:
         condition: service_healthy
@@ -30,6 +30,13 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/documents_db
       - SPRING_DATASOURCE_USERNAME=service_account
       - SPRING_DATASOURCE_PASSWORD=password
+      - WORKERS_SUBMIT_NAME=SubmitWorker
+      - WORKERS_SUBMIT_INITIAL_DELAY=20000
+      - WORKERS_SUBMIT_FIXED_DELAY=40000
+      - WORKERS_APPROVE_NAME=ApprovalWorker
+      - WORKERS_APPROVE_INITIAL_DELAY=20000
+      - WORKERS_APPROVE_FIXED_DELAY=40000
+      - SCHEDULING_POOL_SIZE=2
 
 volumes:
   pgdata:
