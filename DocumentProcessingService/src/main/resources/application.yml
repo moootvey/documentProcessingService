@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/doc_db #${SPRING_DATASOURCE_URL}
+    username: service_account #${SPRING_DATASOURCE_USERNAME}
+    password: password #${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    enabled: true
+    change-log: classpath:db/migration/db.changelog-master.yaml
+
+workers:
+    batch:
+      size: 15
+    submit:
+      name: "DocumentSubmittingWorker"
+      initialDelay: 20000
+      fixedDelay: 40000
+    approve:
+      name: "DocumentApprovalWorker"
+      initialDelay: 20000
+      fixedDelay: 40000
+
+scheduling:
+  pool:
+    size: 2

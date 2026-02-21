@@ -1,0 +1,152 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: moootvey
+      changes:
+        - createTable:
+            tableName: document_metadata
+            columns:
+              - column:
+                  name: id
+                  type: varchar(16)
+                  constraints:
+                    primaryKey: true
+                    unique: true
+                    nullable: false
+              - column:
+                  name: unique_number
+                  type: varchar(128)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: approve_register
+            columns:
+              - column:
+                  name: approve_id
+                  type: varchar(20)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: document_id
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: approved_by
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: approved_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: document_history_log
+            columns:
+              - column:
+                  name: id
+                  type: varchar(20)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: document_id
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: performed_by
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timestamp
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: action
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: details
+                  type: varchar(255)
+
+        - addForeignKeyConstraint:
+            baseTableName: approve_register
+            baseColumnNames: document_id
+            referencedTableName: document_metadata
+            referencedColumnNames: id
+            constraintName: fk_approve_register_document
+            onDelete: NO ACTION
+
+        - addForeignKeyConstraint:
+            baseTableName: document_history_log
+            baseColumnNames: document_id
+            referencedTableName: document_metadata
+            referencedColumnNames: id
+            constraintName: fk_document_history_log_document
+            onDelete: NO ACTION
+
+        - createIndex:
+            tableName: document_metadata
+            indexName: idx_document_metadata_status
+            columns:
+              - column:
+                  name: status
+              - column:
+                  name: author
+              - column:
+                  name: created_at
+
+        - createIndex:
+            tableName: approve_register
+            indexName: idx_approve_register_document_id
+            columns:
+              - column:
+                  name: document_id
+
+        - createIndex:
+            tableName: document_history_log
+            indexName: idx_document_history_log_document_id
+            columns:
+              - column:
+                  name: document_id
+
+      rollback: |
+        DROP TABLE IF EXISTS document_history_log CASCADE;
+        DROP TABLE IF EXISTS approve_register CASCADE;
+        DROP TABLE IF EXISTS document_metadata CASCADE;
+        DROP TYPE IF EXISTS actions_enum;
+        DROP TYPE IF EXISTS document_status_enum;
