@@ -39,7 +39,6 @@ public class DocumentGeneratorComponent implements CommandLineRunner {
                             titlePrefix + "-" + i
                     );
 
-                    // Отправляем POST запрос к API основного сервиса
                     restTemplate.postForEntity(apiUrl, request, Void.class);
                     pb.step();
                     successCount++;
