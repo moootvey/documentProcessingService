@@ -20,7 +20,7 @@ public class ApproveRequestDto {
             implementation = String.class,
             requiredMode = Schema.RequiredMode.REQUIRED,
             accessMode = Schema.AccessMode.WRITE_ONLY)
-    @Size.List({@Size(min = 1, max = 1000, message = "You must provide between 1 and 3 document IDs.")})
+    @Size.List({@Size(min = 1, max = 1000, message = "You must provide between 1 and 1000 document IDs.")})
     private List<@Pattern(regexp = ".{16}", message = "Each document ID must consist of 16 characters.") String> documentIds;
 
     @Schema(description = "The name of the approver for the concurrent approval test.",

@@ -27,7 +27,6 @@ public interface DocumentMetadataRepository extends JpaRepository<DocumentMetada
     @Query("UPDATE DocumentMetadataEntity d SET d.status = :status, d.updatedAt = :updatedAt WHERE d.id = :documentId")
     void updateStatusByDocumentIds(String documentId, DocumentStatusEnum status, OffsetDateTime updatedAt);
 
-    // Atomic conditional update: меняет статус только если текущий статус совпадает с expectedStatus
     @Modifying
     @Query("UPDATE DocumentMetadataEntity d SET d.status = :newStatus, d.updatedAt = :updatedAt WHERE d.id = :documentId AND d.status = :expectedStatus")
     int updateStatusIfCurrentStatus(@Param("documentId") String documentId, @Param("expectedStatus") DocumentStatusEnum expectedStatus, @Param("newStatus") DocumentStatusEnum newStatus, @Param("updatedAt") OffsetDateTime updatedAt);

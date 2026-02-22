@@ -3,7 +3,6 @@ package org.itqProj.service;
 import org.itqProj.dto.model.ApproveResponseModelDto;
 import org.itqProj.dto.response.ApproveResponseDto;
 import org.itqProj.enums.ApproveStatusEnum;
-import org.itqProj.service.interfaces.ApproveService;
 import org.itqProj.service.interfaces.ApproveTransactionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -121,7 +121,7 @@ databaseChangeLog:
 
         - createIndex:
             tableName: document_metadata
-            indexName: idx_document_metadata_status
+            indexName: idx_document_metadata_status_author_date
             columns:
               - column:
                   name: status

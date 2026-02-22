@@ -14,7 +14,6 @@ import org.itqProj.dto.request.ApproveRequestDto;
 import org.itqProj.dto.request.ConcurrentTestRequestDto;
 import org.itqProj.dto.response.ApproveResponseDto;
 import org.itqProj.dto.response.ConcurrentApproveResponseDto;
-import org.itqProj.dto.response.GetDocumentsResponseDto;
 import org.itqProj.service.interfaces.ApproveService;
 import org.itqProj.service.interfaces.ConcurrentApproveService;
 import org.springframework.web.bind.annotation.*;
